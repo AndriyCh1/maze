@@ -4,15 +4,38 @@ import { HomePage } from "../pages/home/home";
 import { DashboardPage } from "../pages/dashborard/dashboard";
 import { WaitingRoomPage } from "../pages/waiting-room";
 import { Game } from "../pages/game";
+import { ProtectedRoute } from "./protected-route";
 
 export const MainRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/waiting-room/:id" element={<WaitingRoomPage />} />
-        <Route path="/game/:id" element={<Game />} />
+        <Route path="*" element={<DashboardPage />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <DashboardPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/waiting-room/:id"
+          element={
+            <ProtectedRoute>
+              <WaitingRoomPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/game/:id"
+          element={
+            <ProtectedRoute>
+              <Game />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

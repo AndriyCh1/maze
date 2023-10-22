@@ -10,6 +10,7 @@ import { NewGameWrapper } from "./dashboard.styled";
 import { ClientEvents, ServerEvents } from "../../common/consts";
 import { IRoom } from "../../common/types/room.type";
 import { useNavigate } from "react-router-dom";
+import { Layout } from "../../components/layout";
 
 interface ICreatedRoomResponse {
   data: IRoom;
@@ -52,13 +53,15 @@ export const DashboardPage: React.FC = () => {
 
   return (
     <Container>
-      {user && <Title level={3}>Welcome, {user.username}</Title>}
-      <NewGameWrapper>
-        <Button type="primary" onClick={handleNewGame}>
-          New game
-        </Button>
-      </NewGameWrapper>
-      <Dashboard />
+      <Layout>
+        {user && <Title level={3}>Welcome, {user.username}</Title>}
+        <NewGameWrapper>
+          <Button type="primary" onClick={handleNewGame}>
+            New game
+          </Button>
+        </NewGameWrapper>
+        <Dashboard />
+      </Layout>
     </Container>
   );
 };

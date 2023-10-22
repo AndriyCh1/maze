@@ -5,11 +5,15 @@ export const MazeContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   background-color: #ebeced;
-  width: 100%;
+  min-width: 50%;
   align-items: center;
   border-radius: 0.3rem;
   padding: 3em;
   gap: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 export const NavigationButtonsWrapper = styled.div`

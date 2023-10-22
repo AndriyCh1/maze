@@ -112,14 +112,6 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
     const user = this.roomsManager.getUser(roomId, userId);
     const room = this.roomsManager.getRoom(roomId);
 
-    await this.actionService.create({
-      roomId,
-      command,
-      userId,
-      positionX: user.position.x,
-      positionY: user.position.y,
-    });
-
     const maze = room.maze;
     const cell = maze.getCell(user.position);
 
@@ -131,7 +123,7 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
       socket.emit(ServerEvents.MESSAGE, {
         data: {
           id: uuidv4(),
-          user,
+          user: user.user,
           timestamp: new Date(),
           message: 'Not your turn',
           moved: false,
@@ -158,13 +150,22 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
     this.roomsManager.switchTurn(roomId);
 
     if (isExit) {
-      room.result.winner = userId;
+      await this.roomsManager.setWinner(roomId, userId);
       this.server.in(roomId).emit(ServerEvents.USER_WON, {
         data: { userId: user.user.id, username: user.user.username },
       });
 
       return;
     }
+
+    await this.actionService.create({
+      roomId,
+      command,
+      userId,
+      positionX: newPosition?.x || user.position.x,
+      positionY: newPosition?.y || user.position.y,
+      isWall,
+    });
 
     socket.emit(ServerEvents.MOVE, {
       data: {
@@ -182,7 +183,7 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
     this.server.in(roomId).emit(ServerEvents.MESSAGE, {
       data: {
         id: uuidv4(),
-        user,
+        user: user.user,
         timestamp: new Date(),
         message: `Going ${commandToWay(command)}...`,
       },
@@ -246,7 +247,7 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
     this.server.in(roomId).emit(ServerEvents.MESSAGE, {
       data: {
         id: uuidv4(),
-        user,
+        user: user.user,
         timestamp: new Date(),
         message: `Player ${user.user.username} gave up!`,
       },

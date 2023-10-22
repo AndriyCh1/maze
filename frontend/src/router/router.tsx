@@ -5,6 +5,8 @@ import { DashboardPage } from "../pages/dashborard/dashboard";
 import { WaitingRoomPage } from "../pages/waiting-room";
 import { Game } from "../pages/game";
 import { ProtectedRoute } from "./protected-route";
+import { PlayedGames } from "../pages/played-games/played-games";
+import { Replay } from "../pages/replay/replay";
 
 export const MainRouter = () => {
   return (
@@ -33,6 +35,22 @@ export const MainRouter = () => {
           element={
             <ProtectedRoute>
               <Game />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/played-games"
+          element={
+            <ProtectedRoute>
+              <PlayedGames />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/played-games/replay/:id"
+          element={
+            <ProtectedRoute>
+              <Replay />
             </ProtectedRoute>
           }
         />

@@ -3,7 +3,6 @@ import { IUser } from "./user.type";
 export interface IRoom {
   id: string;
   owner: IUser;
-  ownerId: string;
   timestamp: Date;
 }
 

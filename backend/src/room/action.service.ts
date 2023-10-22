@@ -12,7 +12,7 @@ export class ActionService {
   ) {}
 
   async create(data: ISaveAction): Promise<Action> {
-    const { userId, command, roomId, positionX, positionY } = data;
+    const { userId, command, roomId, positionX, positionY, isWall } = data;
 
     const actionInstance = this.actionRepository.create({
       command,
@@ -20,6 +20,7 @@ export class ActionService {
       user: { id: userId },
       positionX,
       positionY,
+      isWall,
     });
 
     return this.actionRepository.save(actionInstance);

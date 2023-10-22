@@ -9,6 +9,7 @@ import { GameModule } from './game/game.module';
 import { MazeModule } from './maze/maze.module';
 import { Maze as MazeEntity } from './maze/entities/maze.entity';
 import { Action } from './room/entities/action.entity';
+import { RoomUser } from './room/entities/room-user.entity';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { Action } from './room/entities/action.entity';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [User, Room, MazeEntity, Action],
+      entities: [User, Room, MazeEntity, Action, RoomUser],
       synchronize: true,
     }),
     UserModule,

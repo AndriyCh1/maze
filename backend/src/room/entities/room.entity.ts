@@ -3,8 +3,6 @@ import {
   PrimaryGeneratedColumn,
   OneToOne,
   JoinColumn,
-  ManyToMany,
-  JoinTable,
   Column,
   ManyToOne,
   OneToMany,
@@ -13,6 +11,7 @@ import {
 import { User } from '../../user/entities/user.entity';
 import { Maze as MazeEntity } from '../../maze/entities/maze.entity';
 import { Action } from './action.entity';
+import { RoomUser } from './room-user.entity';
 
 @Entity()
 export class Room {
@@ -25,9 +24,8 @@ export class Room {
   @ManyToOne(() => User, (user) => user.rooms)
   owner: User;
 
-  @ManyToMany(() => User)
-  @JoinTable()
-  users: User[];
+  @OneToMany(() => RoomUser, (roomUser) => roomUser.room)
+  roomUsers: RoomUser[];
 
   @OneToOne(() => MazeEntity)
   @JoinColumn()

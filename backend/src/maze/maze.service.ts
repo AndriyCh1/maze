@@ -12,7 +12,6 @@ export class MazeService {
   ) {}
 
   public async generateMaze(width = 5, height = 5): Promise<MazeEntity> {
-    // TODO: implement algorithm
     const stringifiedMaze = JSON.stringify(maze5x5.toJSON());
 
     return await this.mazeRepository.save(

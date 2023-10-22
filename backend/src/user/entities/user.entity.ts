@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { Room } from '../../room/entities/room.entity';
 import { Action } from '../../room/entities/action.entity';
+import { RoomUser } from '../../room/entities/room-user.entity';
+import { Room } from '../../room/entities/room.entity';
 
 @Entity()
 export class User {
@@ -13,6 +14,9 @@ export class User {
   @OneToMany(() => Room, (room) => room.owner)
   rooms: Room[];
 
-  @OneToMany(() => Action, (action: Action) => action.room)
+  @OneToMany(() => RoomUser, (roomUser) => roomUser.user)
+  roomUsers: RoomUser[];
+
+  @OneToMany(() => Action, (action: Action) => action.user)
   actions: Action[];
 }

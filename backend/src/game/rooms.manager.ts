@@ -1,5 +1,4 @@
 import { Maze, Position } from '../maze/models/maze.model';
-import { ActionService } from '../room/action.service';
 import { Room } from '../room/entities/room.entity';
 import { RoomService } from '../room/room.service';
 import { User } from '../user/entities/user.entity';
@@ -31,7 +30,6 @@ interface IRoomSession {
 }
 
 const MAX_PLAYERS = 2;
-const INITIAL_POSITION = { x: 0, y: 0 };
 
 const GAME_RESULT_INIT: IGameResult = {
   winner: null,
@@ -71,7 +69,6 @@ export class RoomsManager {
     };
 
     this.rooms.set(room.id, roomSession);
-    // FIXME: inconsistent data, this one is from DB
     return roomSession;
   }
 
@@ -130,11 +127,11 @@ export class RoomsManager {
       throw new Error('Room is already occupied.');
     }
 
-    await this.roomService.addUserToRoom(userId, roomId);
+    const { roomUser } = await this.roomService.addUserToRoom(userId, roomId);
     const user = await this.userService.findOneById(userId);
 
     const userSession: IUserSession = {
-      position: INITIAL_POSITION,
+      position: { x: roomUser.initialPositionX, y: roomUser.initialPositionY },
       user: { id: user.id, username: user.username },
       score: 0,
     };
@@ -242,9 +239,10 @@ export class RoomsManager {
     room.result.gaveUpUser = userId;
   }
 
-  setWinner(roomId: Room['id'], userId: User['id']) {
+  async setWinner(roomId: Room['id'], userId: User['id']) {
     const room = this.getRoom(roomId);
     room.result.winner = userId;
+    await this.roomService.updateWinStatus(roomId, userId, true);
   }
 
   setUserDisconnected(roomId: Room['id'], userId: User['id']) {

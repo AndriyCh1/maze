@@ -15,4 +15,9 @@ export class UserController {
   async getProfile(@Param('id') id: string) {
     return await this.userService.findOneById(id);
   }
+
+  @Get(':id/rooms')
+  async getUserRooms(@Param('id') id: string) {
+    return await this.userService.getUserRooms(id);
+  }
 }

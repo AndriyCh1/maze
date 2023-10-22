@@ -141,4 +141,26 @@ export class Maze {
 
     return newPosition;
   }
+
+  findPassCell(): Cell | undefined {
+    const passableCells: Cell[] = [];
+
+    for (const cell of this.cells) {
+      if (
+        !this.isWallInDirection(cell, 'top') ||
+        !this.isWallInDirection(cell, 'right') ||
+        !this.isWallInDirection(cell, 'bottom') ||
+        !this.isWallInDirection(cell, 'left')
+      ) {
+        passableCells.push(cell);
+      }
+    }
+
+    if (passableCells.length > 0) {
+      const randomIndex = Math.floor(Math.random() * passableCells.length);
+      return passableCells[randomIndex];
+    } else {
+      return undefined;
+    }
+  }
 }

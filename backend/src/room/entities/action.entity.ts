@@ -18,9 +18,15 @@ export class Action {
   @Column({ type: 'int2' })
   positionY: number;
 
+  @Column()
+  isWall: boolean;
+
   @ManyToOne(() => Room, (room: Room) => room.actions)
   room: Room;
 
   @ManyToOne(() => User, (user: User) => user.actions)
   user: User;
+
+  @PrimaryGeneratedColumn('increment')
+  sequenceId: number;
 }

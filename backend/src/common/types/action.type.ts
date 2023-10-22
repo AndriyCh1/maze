@@ -11,6 +11,7 @@ export interface ISaveAction {
   userId: string;
   positionX: number;
   positionY: number;
+  isWall: boolean;
 }
 
 export interface ICommand {

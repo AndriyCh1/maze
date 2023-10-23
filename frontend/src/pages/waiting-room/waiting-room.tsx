@@ -9,6 +9,7 @@ import Title from "antd/es/typography/Title";
 import Paragraph from "antd/es/typography/Paragraph";
 import { Container } from "../../components/container";
 import { useTimer } from "../../common/hooks";
+import { Layout } from "../../components/layout";
 
 export const WaitingRoomPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -48,12 +49,14 @@ export const WaitingRoomPage: React.FC = () => {
 
   return (
     <Container>
-      <Card title={`Waiting Room #${id}`}>
-        <Title level={3}>
-          You started a new game {formatTime(timePassed)} ago.
-        </Title>
-        <Paragraph>Waiting for a second player...</Paragraph>
-      </Card>
+      <Layout>
+        <Card title={`Waiting Room #${id}`}>
+          <Title level={3}>
+            You started a new game {formatTime(timePassed)} ago.
+          </Title>
+          <Paragraph>Waiting for a second player...</Paragraph>
+        </Card>
+      </Layout>
     </Container>
   );
 };

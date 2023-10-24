@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const MazeWrapper = styled.table`
   border-collapse: collapse;
+  padding: 10px;
 `;
 
 export const Cell = styled.td`

@@ -15,6 +15,11 @@ For the [BackEnd](./backend) to work properly, you need to fill in the **`.env`*
 
 For the [FrontEnd](./frontend) to work properly, you need to fill in the **`.env`** file. You can use the **`.env.example`** file as an example.
 
+#### Predefined mazes
+
+- [Maze 5x5](./assets/maze5x5.png)
+- [Maze 10x10](./assets/maze10x10.png)
+
 ### Video demonstration
 
 https://youtu.be/dNXYKR07k0s

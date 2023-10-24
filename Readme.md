@@ -1,5 +1,20 @@
 Two-player in-browser game.
 
+### How to run the app
+
+1. **`npm run install`** at the root of each **`/frontend`** and **`/backend`** directories
+2. Fill ENVs
+3. **`npm run start:dev`** at the root of **`/backend`**
+4. **`npm [run] start`** at the root of **`/frontend`**
+
+#### BackEnd
+
+For the [BackEnd](./backend) to work properly, you need to fill in the **`.env`** file. You can use the **`.env.example`** file as an example.
+
+#### FrontEnd
+
+For the [FrontEnd](./frontend) to work properly, you need to fill in the **`.env`** file. You can use the **`.env.example`** file as an example.
+
 ### Video demonstration
 
 https://youtu.be/dNXYKR07k0s

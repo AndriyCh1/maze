@@ -33,6 +33,7 @@ export const DashboardPage: React.FC = () => {
   useEffect(() => {
     getProfile();
 
+    socketService.io.opts.query = { ...socketService.io.opts.query, userId };
     socketService.connect();
 
     socketService.on(

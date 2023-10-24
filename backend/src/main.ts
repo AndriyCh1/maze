@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { WebsocketAdapter } from './game/gateway.adapter';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -19,6 +20,9 @@ async function bootstrap() {
     origin: '*',
   });
 
-  await app.listen(4000);
+  const configService: ConfigService = app.get(ConfigService);
+  const port = configService.get<number>('PORT') ?? 4000;
+
+  await app.listen(port);
 }
 bootstrap();
